@@ -1,10 +1,16 @@
-const images = document.querySelectorAll('.hero-images img');
-let currentIndex = 0;
+name: Delete Environment (default settings)
 
-function rotateImages() {
-  images[currentIndex].classList.remove('active');
-  currentIndex = (currentIndex + 1) % images.length;
-  images[currentIndex].classList.add('active');
-}
+on:
+  delete:
+    branches-ignore:
+      - main
 
-setInterval(rotateImages, 5000); // Change image every 5 seconds
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: strumwolf/delete-deployment-environment@v2
+        with:
+          # ⚠️ The provided token needs permission for admin write:org
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: my-environment-name
